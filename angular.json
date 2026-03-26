@@ -2,9 +2,156 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "b843e2fd-9557-497b-bca7-a80ff9299af6"
   },
   "newProjectRoot": "projects",
   "projects": {
+    "shell": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/shell",
+      "sourceRoot": "projects/shell/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "tsConfig": "projects/shell/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/shell/public",
+                "output": "."
+              }
+            ],
+            "styles": ["projects/shell/src/styles.css"],
+            "main": "projects/shell/src/main.ts",
+            "outputPath": "dist/shell",
+            "index": "projects/shell/src/index.html",
+            "extraWebpackConfig": "projects/shell/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/shell/webpack.prod.config.js"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "shell:build:production",
+              "extraWebpackConfig": "projects/shell/webpack.prod.config.js"
+            },
+            "development": {
+              "buildTarget": "shell:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4200,
+            "publicHost": "http://localhost:4200",
+            "extraWebpackConfig": "projects/shell/webpack.config.js"
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    },
+    "identity-management": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/identity-management",
+      "sourceRoot": "projects/identity-management/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "ngx-build-plus:browser",
+          "options": {
+            "tsConfig": "projects/identity-management/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "projects/identity-management/public",
+                "output": "."
+              }
+            ],
+            "styles": ["projects/identity-management/src/styles.css"],
+            "main": "projects/identity-management/src/main.ts",
+            "outputPath": "dist/identity-management",
+            "index": "projects/identity-management/src/index.html",
+            "extraWebpackConfig": "projects/identity-management/webpack.config.js",
+            "commonChunk": false
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all",
+              "extraWebpackConfig": "projects/identity-management/webpack.prod.config.js"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "ngx-build-plus:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "identity-management:build:production",
+              "extraWebpackConfig": "projects/identity-management/webpack.prod.config.js"
+            },
+            "development": {
+              "buildTarget": "identity-management:build:development"
+            }
+          },
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4201,
+            "publicHost": "http://localhost:4201",
+            "extraWebpackConfig": "projects/identity-management/webpack.config.js"
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test"
+        }
+      }
+    }
   }
 }

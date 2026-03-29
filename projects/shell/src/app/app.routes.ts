@@ -4,16 +4,16 @@ import { loadRemoteModule } from '@angular-architects/module-federation';
 export const routes: Routes = [
   {
     path: 'identity-management',
-    loadComponent: () =>
+    loadChildren: () =>
       loadRemoteModule({
         type: 'module',
         remoteEntry: 'http://localhost:4201/remoteEntry.js',
-        exposedModule: './Module',
-      }).then((m) => m.App),
+        exposedModule: './Routes',
+      }).then((m) => m.routes),
   },
   {
     path: '',
-    redirectTo: 'identity-management',
+    redirectTo: 'identity-management/signup',
     pathMatch: 'full',
   },
 ];

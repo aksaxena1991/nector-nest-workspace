@@ -7,7 +7,7 @@ module.exports = withModuleFederationPlugin({
   name: 'identity-management',
 
   exposes: {
-    './Module': './projects/identity-management/src/app/app.ts',
+    './Routes': './projects/identity-management/src/app/app.routes.ts',
   },
 
   shared: {
